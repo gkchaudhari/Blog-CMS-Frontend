@@ -1,0 +1,46 @@
+<mat-sidenav-container class="h-screen w-full">
+
+    <mat-sidenav #sidenav mode="side" [opened]="isOpen()" class="w-64">
+        <div class="p-4 border-b">
+            <h2 class="text-lg font-semibold text-gray-700">Menu</h2>
+        </div>
+        <mat-nav-list class="flex flex-col items-center justify-center text-center text-md">
+            <div>
+
+                <a mat-list-item routerLink="/">Home</a>
+            </div>
+            <div>
+
+                <a mat-list-item routerLink="/blogs">Blogs</a>
+            </div>
+            <div>
+
+                <a mat-list-item routerLink="/about">About</a>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <mat-toolbar class="toolbar-custom">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="ml-2 text-xl font-semibold">CMS Blog</span>
+            <span class="flex-1"></span>
+            @if(isLoggedIn()){
+            <button mat-icon-button><mat-icon>login</mat-icon></button>
+            }@else {
+            <button mat-icon-button><mat-icon>person</mat-icon></button>
+            }
+            <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+            <button mat-icon-button><mat-icon>share</mat-icon></button>
+        </mat-toolbar>
+
+        <main class="p-6 bg-gray-100 min-h-[calc(100vh-64px)] overflow-auto">
+            <router-outlet></router-outlet>
+        </main>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
