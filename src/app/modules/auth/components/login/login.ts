@@ -3,35 +3,44 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../../../core/services/auth.service';
+import { LoginPayload } from '../../../../core/models/auth.model';
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule],
+    MatButtonModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-   loading = signal(false);
+  loading = signal<boolean>(false);
 
-  fb = inject(FormBuilder);
+  //DI Injection
+  authService: AuthService = inject(AuthService);
+  fb: FormBuilder = inject(FormBuilder);
+
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-
   onSubmit() {
-    if (this.form.invalid) return;
+    const payload = this.form.value as LoginPayload;
+    this.authService.login(payload).subscribe({
+      next: () => {
 
-    this.loading.set(true);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
 
-    console.log('Login Data:', this.form.value);
 
-    setTimeout(() => {
-      this.loading.set(false);
-    }, 1000);
+
+
   }
 }

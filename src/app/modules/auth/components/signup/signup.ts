@@ -1,15 +1,17 @@
+import { getRouterModuleDeclaration } from '@angular/cdk/schematics';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-signup',
-  imports: [  ReactiveFormsModule,
+  imports: [ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule],
+    MatButtonModule, RouterModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css',
 })

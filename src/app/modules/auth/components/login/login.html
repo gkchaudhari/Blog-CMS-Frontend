@@ -1,4 +1,4 @@
-<mat-card class="max-w-md mx-auto mt-10 p-4">
+<mat-card class="max-w-md mx-auto mt-4 p-4">
 
   <h2 class="text-xl font-bold mb-4">Login</h2>
 
@@ -14,13 +14,12 @@
       <input matInput type="password" formControlName="password" />
     </mat-form-field>
 
-    <button 
-      mat-raised-button 
-      color="primary" 
-      class="w-full"
-      [disabled]="loading()"
-    >
+    <button mat-raised-button color="primary" class="w-full" [disabled]="loading()">
       {{ loading() ? 'Logging in...' : 'Login' }}
+    </button>
+
+    <button mat-raised-button color="primary" class="w-full mt-5" [routerLink]="['/signup']">
+      Create New Account
     </button>
 
   </form>
