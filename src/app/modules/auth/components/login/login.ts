@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../../core/services/auth.service';
 import { LoginPayload } from '../../../../core/models/auth.model';
 import { Router, RouterModule } from "@angular/router";
+import { ToastService } from '../../../../core/services/toast-service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +23,7 @@ export class Login {
 
   //DI Injection
   authService: AuthService = inject(AuthService);
+  toastService: ToastService = inject(ToastService);
   fb: FormBuilder = inject(FormBuilder);
   router: Router = inject(Router);
 
@@ -31,18 +34,24 @@ export class Login {
 
 
   onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+
     const payload = this.form.value as LoginPayload;
     this.authService.login(payload).subscribe({
-      next: () => {
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        console.log(err);
-      }
+      next: () => this.handleSuccess(),
+      error: (err) => this.handleError(err)
     });
+  }
 
+  private handleSuccess() {
+    this.toastService.success("Login Successful", "Success");
+    this.router.navigate(['/dashboard']);
+  }
 
-
-
+  private handleError(err: any) {
+    this.toastService.error(err.error.message, "Error while logining...");
+    console.log(err.error.message);
   }
 }
