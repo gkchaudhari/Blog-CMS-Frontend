@@ -4,7 +4,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
+import { AuthService } from '../../../../core/services/auth.service';
+import { SignupPayload } from '../../../../core/models/auth.model';
 
 @Component({
   selector: 'app-signup',
@@ -25,17 +27,24 @@ export class Signup {
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
+  //DI
+  authService = inject(AuthService);
+  router = inject(Router);
+
 
 
   onSubmit() {
-    if (this.form.invalid) return;
+    // if (this.form.invalid) return;
 
-    this.loading.set(true);
+    const payload = this.form.value as SignupPayload;
 
-    console.log('Signup Data:', this.form.value);
-
-    setTimeout(() => {
-      this.loading.set(false);
-    }, 1000);
+    this.authService.signup(payload).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 }

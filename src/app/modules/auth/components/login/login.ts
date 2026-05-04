@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../../core/services/auth.service';
 import { LoginPayload } from '../../../../core/models/auth.model';
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -22,17 +22,19 @@ export class Login {
   //DI Injection
   authService: AuthService = inject(AuthService);
   fb: FormBuilder = inject(FormBuilder);
+  router: Router = inject(Router);
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
+
   onSubmit() {
     const payload = this.form.value as LoginPayload;
     this.authService.login(payload).subscribe({
       next: () => {
-
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.log(err);

@@ -28,13 +28,14 @@
             </button>
             <span class="ml-2 text-xl font-semibold">CMS Blog</span>
             <span class="flex-1"></span>
-            @if(isLoggedIn()){
-            <button mat-icon-button><mat-icon>login</mat-icon></button>
+            @if(!isLoggedIn()){
+            <!-- <button mat-icon-button [matTooltip]="'login'" (click)="onLogin()"><mat-icon>login</mat-icon></button> -->
             }@else {
-            <button mat-icon-button><mat-icon>person</mat-icon></button>
+            <button mat-icon-button [matTooltip]="'profile'"><mat-icon>person</mat-icon></button>
+            <button mat-icon-button [matTooltip]="'logout'" (click)="onLogout()"><mat-icon>logout</mat-icon></button>
             }
-            <button mat-icon-button><mat-icon>favorite</mat-icon></button>
-            <button mat-icon-button><mat-icon>share</mat-icon></button>
+            <!-- <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+            <button mat-icon-button><mat-icon>share</mat-icon></button> -->
         </mat-toolbar>
 
         <main class="p-6 bg-gray-100 min-h-[calc(100vh-64px)] overflow-auto">
