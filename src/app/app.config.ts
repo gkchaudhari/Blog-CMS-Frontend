@@ -8,7 +8,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [provideBrowserGlobalErrorListeners(), provideRouter(routes),
   provideToastr({
-    timeOut: 10000,
+    timeOut: 2000,
     positionClass: 'toast-bottom-right',
     preventDuplicates: true,
   }),
