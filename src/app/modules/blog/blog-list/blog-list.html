@@ -1,0 +1,84 @@
+<div class="blog-list-container">
+    <h1>Blog List</h1>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading">
+        <p>Loading blogs...</p>
+    </div>
+    }
+
+    <!-- Table -->
+    @if (!isLoading() && blogs().length > 0) {
+    <div class="table-wrapper">
+        <table mat-table [dataSource]="blogs()" class="blogs-table">
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+            </ng-container>
+
+            <!-- Author Column -->
+            <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef>Author</th>
+                <td mat-cell *matCellDef="let element">{{ element.author }}</td>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let element">{{ element.category || '-' }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                    <span [class]="'status-' + element.status">{{ element.status }}</span>
+                </td>
+            </ng-container>
+
+            <!-- Created At Column -->
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Created</th>
+                <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'short' }}</td>
+            </ng-container>
+
+            <!-- Updated At Column -->
+            <ng-container matColumnDef="updatedAt">
+                <th mat-header-cell *matHeaderCellDef>Updated</th>
+                <td mat-cell *matCellDef="let element">{{ element.updatedAt | date: 'short' }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex">
+                    <button mat-icon-button color="primary" (click)="editBlog(element)" title="Edit">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteBlog(element, i)" title="Delete">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns();"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator [length]="totalBlogs()" [pageSize]="pageSize()" [pageSizeOptions]="[5, 10, 25]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && blogs().length === 0) {
+    <div class="empty-state">
+        <p>No blogs found.</p>
+    </div>
+    }
+</div>

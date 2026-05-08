@@ -7,7 +7,6 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { LoginPayload } from '../../../../core/models/auth.model';
 import { Router, RouterModule } from "@angular/router";
 import { ToastService } from '../../../../core/services/toast-service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
