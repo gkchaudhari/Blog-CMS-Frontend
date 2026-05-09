@@ -6,14 +6,12 @@ export interface Blog {
     author: string;
     createdAt: Date;
     updatedAt: Date;
-    status: 'draft' | 'published';
+    status: BlogStatus;
     category?: string;
     coverImageUrl?: string;
     slug?: string;
     createdBy?: string;
     updatedBy?: string;
-    // tags?: string[];
-    // published: boolean;
 }
 
 export interface CreateBlogPayload {
@@ -35,3 +33,5 @@ export interface BlogResponse {
     page: number;
     pageSize: number;
 }
+
+export type BlogStatus = 'draft' | 'published' | 'archived' | 'unpublished';
