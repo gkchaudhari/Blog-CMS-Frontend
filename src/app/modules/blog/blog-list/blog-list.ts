@@ -8,6 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Blog } from '../../../core/models/blog.model';
 import { BlogService } from '../../../core/services/blog-service';
 import { ToastService } from '../../../core/services/toast-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
@@ -19,6 +20,7 @@ export class BlogList implements OnInit {
   private blogService = inject(BlogService);
   private toastService = inject(ToastService);
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   // Using signals for reactive state management
   blogs = signal<Blog[]>([]);
@@ -58,6 +60,8 @@ export class BlogList implements OnInit {
   editBlog(blog: Blog): void {
     this.toastService.success(`Editing: ${blog.title}`, 'Edit Blog');
     // TODO: Implement edit navigation
+    this.router.navigate([`/blog/edit`, blog.id, blog.slug]);
+
     console.log('Edit blog:', blog);
   }
 

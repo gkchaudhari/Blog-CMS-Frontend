@@ -2,12 +2,16 @@ export interface Blog {
     id: string;
     title: string;
     content: string;
-    // description: string;
+    description: string;
     author: string;
     createdAt: Date;
     updatedAt: Date;
     status: 'draft' | 'published';
     category?: string;
+    coverImageUrl?: string;
+    slug?: string;
+    createdBy?: string;
+    updatedBy?: string;
     // tags?: string[];
     // published: boolean;
 }

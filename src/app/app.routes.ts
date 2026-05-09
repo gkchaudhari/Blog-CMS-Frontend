@@ -32,6 +32,14 @@ export const routes: Routes = [
           import('./modules/dashboard/dashboard')
             .then(m => m.Dashboard),
       },
+      {
+        path: 'blog/create',
+        loadComponent: () => import('./modules/blog/edit-blog/edit-blog').then(m => m.EditBlog),
+      },
+      {
+        path: 'blog/edit/:id/:slug',
+        loadComponent: () => import('./modules/blog/edit-blog/edit-blog').then(m => m.EditBlog),
+      }
     ],
   },
 

@@ -29,7 +29,7 @@ export class BlogService {
    * Get a single blog by ID
    */
   getBlogById(id: string) {
-    return this.httpClient.get<Blog>(`${this.apiUrl}/${id}`);
+    return this.httpClient.get<Blog>(`${this.apiUrl}/GetBlogById?id=${id}`);
   }
 
   /**
