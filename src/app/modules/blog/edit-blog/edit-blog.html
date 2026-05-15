@@ -1,1 +1,68 @@
-<p>edit-blog works!</p>
+<!-- <div class="flex justify-center flex-col items-center gap-10 text-center">
+
+    <mat-form-field>
+        <mat-label>Blog Title</mat-label>
+        <input matInput placeholder="Enter blog title" [formField]="blogForm.title">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Slug</mat-label>
+        <input matInput placeholder="Enter blog slug" [formField]="blogForm.slug">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Blog Description</mat-label>
+        <input matInput placeholder="Enter blog description" [formField]="blogForm.description">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Blog Content</mat-label>
+        <input matInput placeholder="Enter blog content" [formField]="blogForm.content">
+    </mat-form-field>
+</div>
+<div class="flex gap-10 justify-center items-center">
+    <button matButton="filled" (click)="onSubmit()">Submit</button>
+    <button matButton="outlined" (click)="onReset()">Reset</button>
+</div> -->
+
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 py-10">
+
+    <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
+
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
+            @if(isEditMode()){ Edit Blog} @else { Create Blog }
+        </h1>
+
+        <div class="flex flex-col gap-6">
+
+            <mat-form-field class="w-full">
+                <mat-label>Blog Title</mat-label>
+                <input matInput [formField]="blogForm.title">
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>Slug</mat-label>
+                <input matInput [formField]="blogForm.slug">
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>Blog Content</mat-label>
+                <textarea matInput rows="6" [formField]="blogForm.content">
+                </textarea>
+            </mat-form-field>
+
+        </div>
+
+        <div class="flex justify-center gap-4 mt-8">
+
+            <button matButton="filled" class="!px-6 !py-2 !rounded-xl" (click)="onSubmit()">
+                @if(isSubmitting()){ Submitting...} @else {
+                {{ isEditMode() ? 'Update' : 'Create' }}}
+            </button>
+
+            <button matButton="outlined" class="!px-6 !py-2 !rounded-xl" (click)="onReset()">
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

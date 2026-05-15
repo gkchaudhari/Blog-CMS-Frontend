@@ -43,7 +43,7 @@ export class BlogService {
    * Update an existing blog post
    */
   updateBlog(id: string, payload: Partial<CreateBlogPayload>) {
-    return this.httpClient.put<Blog>(`${this.apiUrl}/${id}`, payload);
+    return this.httpClient.put<Blog>(`${this.apiUrl}/UpdateBlog?id=${id}`, payload);
   }
 
   /**

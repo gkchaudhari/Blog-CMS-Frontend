@@ -2,14 +2,13 @@ export interface Blog {
     id: string;
     title: string;
     content: string;
-    description: string;
     author: string;
     createdAt: Date;
     updatedAt: Date;
     status: BlogStatus;
-    category?: string;
-    coverImageUrl?: string;
-    slug?: string;
+    category: string;
+    coverImageUrl: string;
+    slug: string;
     createdBy?: string;
     updatedBy?: string;
 }
@@ -17,10 +16,8 @@ export interface Blog {
 export interface CreateBlogPayload {
     title: string;
     content: string;
-    description: string;
-    category?: string;
-    tags?: string[];
-    published?: boolean;
+    slug: string;
+    category: string;
 }
 
 export interface UpdateBlogPayload extends Partial<CreateBlogPayload> {
