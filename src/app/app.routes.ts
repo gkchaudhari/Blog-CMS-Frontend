@@ -33,12 +33,10 @@ export const routes: Routes = [
             .then(m => m.Dashboard),
       },
       {
-        path: 'blog/create',
-        loadComponent: () => import('./modules/blog/edit-blog/edit-blog').then(m => m.EditBlog),
-      },
-      {
-        path: 'blog/edit/:blogId/:slug',
-        loadComponent: () => import('./modules/blog/edit-blog/edit-blog').then(m => m.EditBlog),
+        path: 'blogs',
+        canActivate: [authGuard],
+        loadChildren: () =>
+          import('./modules/blog/blog.routes').then(m => m.BlogRoutes),
       }
     ],
   },

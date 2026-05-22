@@ -36,7 +36,7 @@ export class BlogService {
    * Create a new blog post
    */
   createBlog(payload: CreateBlogPayload) {
-    return this.httpClient.post<Blog>(this.apiUrl, payload);
+    return this.httpClient.post<Blog>(`${this.apiUrl}/CreateBlog`, payload);
   }
 
   /**

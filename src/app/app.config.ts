@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideBrowserGlobalErrorListeners(), provideRouter(routes),
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     positionClass: 'toast-bottom-right',
     preventDuplicates: true,
   }),
-  provideHttpClient(withFetch())
+  provideHttpClient(withInterceptors([authInterceptor]), withFetch())
   ],
 };

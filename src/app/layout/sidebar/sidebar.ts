@@ -15,7 +15,7 @@ interface NavGroup {
 }
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, MatSidenavModule, MatListModule, MatIconModule],
+  imports: [MatSidenavModule, MatListModule, MatIconModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

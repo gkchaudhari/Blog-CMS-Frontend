@@ -4,10 +4,9 @@ import { EditBlogForm } from '../../../core/models/form/edit-blog';
 import { MatFormField, MatInputModule, MatLabel } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { BlogService } from '../../../core/services/blog-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../core/services/toast-service';
-import { catchError, debounce, debounceTime, EMPTY, exhaustMap, finalize, Subject, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, EMPTY, exhaustMap, finalize, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-blog',
@@ -24,6 +23,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class EditBlog implements OnInit {
 
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   isSubmitting = signal(false);
   private blogService = inject(BlogService);
   private toastService = inject(ToastService);
@@ -86,9 +86,7 @@ export class EditBlog implements OnInit {
     this.submit$
       .pipe(
         exhaustMap(() => {
-
           this.isSubmitting.set(true);
-
           const request$ = this.isEditMode()
             ? this.blogService.updateBlog(
               this.blogId(),
@@ -99,40 +97,34 @@ export class EditBlog implements OnInit {
             );
 
           return request$.pipe(
-
             tap(() => {
-
               this.toastService.success(
                 this.isEditMode()
                   ? 'Blog updated successfully'
                   : 'Blog created successfully',
                 'Success'
               );
-
             }),
 
-            catchError(() => {
-
+            catchError((error) => {
               this.toastService.error(
-                'Something went wrong',
+                error.message || 'Something went wrong',
                 'Error'
               );
-
               return EMPTY;
-
             }),
 
             finalize(() => {
-
               this.isSubmitting.set(false);
-
             })
-
           );
-
         })
       )
-      .subscribe();
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/blogs']);
+        }
+      });
   }
 
 }
