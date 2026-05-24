@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, OnInit, signal, viewChild } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbar } from "@angular/material/toolbar";
@@ -12,7 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterOutlet,
+  imports: [RouterOutlet, CommonModule, RouterModule,
     MatSidenavModule, MatToolbar, MatIcon, MatNavList, MatButtonModule, MatTooltipModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
@@ -25,6 +25,8 @@ export class LayoutComponent {
   //DI
   router = inject(Router);
   authService = inject(AuthService);
+
+  currentUser = computed(() => this.authService.getCurrentUser());
 
   constructor() {
     effect(() => {

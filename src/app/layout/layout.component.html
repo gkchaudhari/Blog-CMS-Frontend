@@ -31,12 +31,16 @@
             @if(!isLoggedIn()){
             <!-- <button mat-icon-button [matTooltip]="'login'" (click)="onLogin()"><mat-icon>login</mat-icon></button> -->
             }@else {
-            <button mat-icon-button [matTooltip]="'profile'"><mat-icon>person</mat-icon></button>
+            <button mat-icon-button [matTooltip]="currentUser()?.name || 'Profile'"><mat-icon>person</mat-icon></button>
             <button mat-icon-button [matTooltip]="'logout'" (click)="onLogout()"><mat-icon>logout</mat-icon></button>
             }
             <!-- <button mat-icon-button><mat-icon>favorite</mat-icon></button>
             <button mat-icon-button><mat-icon>share</mat-icon></button> -->
         </mat-toolbar>
+
+        <div>
+            <button [routerLink]="['/dashboard']">Go to Dashboard</button>
+        </div>
 
         <main class="p-6 bg-gray-100 min-h-[calc(100vh-64px)] overflow-auto">
             <router-outlet></router-outlet>

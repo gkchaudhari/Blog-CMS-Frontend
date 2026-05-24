@@ -33,7 +33,7 @@ export const routes: Routes = [
             .then(m => m.Dashboard),
       },
       {
-        path: 'blogs',
+        path: 'blog',
         canActivate: [authGuard],
         loadChildren: () =>
           import('./modules/blog/blog.routes').then(m => m.BlogRoutes),

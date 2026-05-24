@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   selector: 'app-blog-list',
   imports: [DatePipe, MatTableModule, MatButtonModule, MatIconModule, MatPaginatorModule, MatDialogModule],
   templateUrl: './blog-list.html',
-  styleUrl: './blog-list.css',
+  styleUrl: './blog-list.css'
 })
 export class BlogList implements OnInit {
   private blogService = inject(BlogService);
